@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="problem.js"></script>
+    <style>
+        .red {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script>
+        updateView()
+function updateView() {
+    let html = '';    
+
+    for (let i = 0; i < model.data.length; i++) {
+        if (model.data[i].editMode == 'false') {
+            html += `
+            <div onclick="changeColor(${i})" class="${model.data[i].color}">${model.data[i].text}
+            </div>
+            <button onclick="editData(${[i]})">Edit</button>
+            `;
+        } else if (model.data[i].editMode == 'true') {
+            html += `
+            <div onclick="changeColor(${i})" class="${model.data[i].color}">
+            <input size="5" oninput="model.inputValue = this.value" value="${model.data[i].text}"></input>
+            <input size="5" oninput="model.inputValue = this.value" value="${model.data[i].color}"></input>
+            </div>
+            <button onclick="saveData(${[i]})">Lagre</button>
+            `;
+        }
+        
+    }
+    
+    document.getElementById('app').innerHTML = `
+    <div>FargeTrykker</div>
+    ${html}
+    `;
+}
+    </script>
+</body>
+
+</html>

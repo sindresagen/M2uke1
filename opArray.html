@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table,
+        tr,
+        td,
+        th {
+            border-collapse: collapse;
+        }
+
+        td,
+        th {
+            padding: 6px;
+        }
+    </style>
+</head>
+
+<body>
+    <table border="1">
+        <tr>
+            <th>Hva</th>
+            <th>Liste av "scalar" (Eks: tall)</th>
+            <th>Liste av objekter</th>
+        </tr>
+        <tr>
+            <td>Lage tom array</td>
+            <td><tt>var s = [];</tt></td>
+            <td><tt>var o = [];</tt></td>
+        </tr>
+        <tr>
+            <td>Lagre verdier</td>
+            <td><tt>s[4] = 6;</tt></td>
+            <td>
+                <pre>o[4] = {name: 'Sindre', age: 25};
+                o[2].name = 'Knut';
+            </pre>
+            </td>
+        </tr>
+        <tr>
+            <td>Lage en med gitte verdier</td>
+            <td><tt>var s = [1,2,3,5,5];</tt></td>
+            <td>
+                <pre>var a = [
+                    {name: 'Per', age: 20},
+                    {name: 'Pål', age: 21},
+                    {name: 'Espen', age: 22},
+                    ];
+                </pre>
+            </td>
+        </tr>
+        <tr>
+            <td>Lese verdier</td>
+            <td><tt>console.log(s[4]);</tt></td>
+            <td>
+                <pre>console.log(o[4]); (gir "{name: 'Sindre', age: 25}")
+                    console.log(o[2].name); (gir 'Knut')
+                </pre>
+            </td>
+        </tr>
+        <tr>
+            <td>Søke etter bestemte verdier</td>
+            <td>Er 7 i lista?
+                <pre>
+                    var count = 0;
+                    for (let index = 0; index < s.length; i++) {
+                        if (s[index] == 7) {
+                            count++;
+                        }
+                    }
+                    let isFound = count > 0;
+                </pre>
+                Det er god programmering å pakke dette inn i en funksjon!: Versjon som ikke teller:
+                <pre>function arrayHasValue(myArray, searchValue) {
+                    let isFound = false;
+                    for (let index = 0; index < myArray.length; i++) {
+                        if (myArray[index] == searchValue) {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+                </pre>
+                Kalles slik: <tt>if (arrayHasValue(s, 7))</tt>
+            </td>
+            <td>
+                Flere muligheter her
+                <ol>
+                    <li>Søker på noe unikt e.g. brukernavn, epost -> forventer 1 eller 0 tilbake - se eksempel under.
+                    </li>
+                    <li>Søke på fornavn - kan være 0, 1 eller mange objekter
+                        -her passer det å returnere en ny array - og dette tilsvarer filtrering - se punkt lenger ned
+                    </li>
+                </ol>
+                Gi meg hele objektet der <tt>username == 'Sindre'</tt>
+
+                <pre>function getObjectByUsername(myArray, usernameToSearch) {
+                    let isFound = false;
+                    for (let index = 0; index < myArray.length; i++) {
+                        let currentUser = myArray[index];
+                        if (currentUser.username == usernameToSearch) {
+                            return currentUser;
+                        }
+                    }
+                    return null;
+                }
+                </pre>
+                Kalles slik: <br /><tt>let userSearchResult = getObjectByUsername(o, 'Sindre');</tt>
+            </td>
+        </tr>
+        <tr>
+            <td>Søke med kriterier - Filtrere</td>
+            <td>
+                <pre>function getNumbersAbove3(myArray) {
+                    let filteredList = [];
+                    for (let index = 0; index < myArray.length; i++) {
+                        const number = myArray[index];
+                        if (number > 3) {
+                            filteredList.push(number);
+                        }
+                    }
+                    return filteredList;
+                }
+                </pre>
+            </td>
+            <td>
+                <pre>function getUsersAged18OrMore(myArray) {
+                    let filteredList = [];
+                    for (let index = 0; index < myArray.length; i++) {
+                        const user = myArray[index];
+                        if (user.age >= 18) {
+                            filteredList.push(user);
+                        }
+                    }
+                    return filteredList;
+                }
+                </pre>
+            </td>
+        </tr>
+        <tr>
+            <td>Sortere</td>
+            <td>Hvis listen inneholder tekst, sorteres det etter ascii-tabellen(ABCabc).
+                Tall sorteres som tall. (Stigende)
+                <tt>s.sort();</tt></td>
+            <td>Når vi sorterer en liste av objekter, er det umulig for JS å vite hva den skal sortere etter. Da må du
+                sende med en såkal <i>sammenligningsfunksjon</i> (<i>Compare function</i>)
+                sammenligningsfunksjonen skal ta to parametere og svare <tt>0</tt> hvis de er like, positivt tall hvis
+                den første er sist - og negativt tall hvis den andre er sist.
+                Eksempelet under sorterer etter alder:
+                <tt>o.sort(function (a, b) {return a.age - b.age});</tt></td>
+            Eksempelet under sorterer etter navn:
+            <pre>o.sort(
+                    function (a, b) {
+                    if (a.name == b.name) return 0;
+                    if (a.name > b.name) return 1;
+                    else return -1;    
+                    });</pre>
+            </td>
+        </tr>
+        <tr>
+            <th>Summere - eller andre aggregeringer
+                (max, min, gjennomsnitt)</th>
+            <td>
+                <pre>function getSum(myArray) {
+                    let sum = 0;
+                    for (let index = 0; index < myArray.length; index++) {
+                        const number = myArray[index];
+                        sum += number;
+                    }  
+                    return sum;  
+            }
+
+            https://getacademy.github.io/StartIT/CommonArrayOperations/
+            </pre>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>
