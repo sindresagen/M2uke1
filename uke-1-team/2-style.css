@@ -1,0 +1,47 @@
+body{
+    background-color: #0f111a;
+    /* width: 100vw;
+    height: 100vh; */
+}
+
+.login-container {
+    width: 500px;
+    height: 500px;
+    border:3px solid green;
+    position: relative;
+    left: 37.5%;
+    top: 300px;
+    
+}
+
+#username {
+    position: absolute;
+    font-size: 2rem;
+    top: 15%;
+    left: 10.5%;
+    overflow: auto;
+}
+
+#password {
+    position: absolute;
+    font-size: 2rem;
+    top: 25%;
+    left: 10.5%;
+    overflow: auto;
+}
+
+#adminLoginBtn {
+    position: absolute;
+    font-size: 2rem;
+    top: 40%;
+    left: 27%;
+}
+
+#userLoginBtn {
+    position: absolute;
+    font-size: 2rem;
+    top: 57%;
+    left: 15%;
+    width: 350px;
+    height: 150px;
+}

@@ -1,3 +1,4 @@
+const appDiv = document.getElementById("app")
 const model = {
     logInPage: {
         adminUser: [
